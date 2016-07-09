@@ -36,7 +36,7 @@ module.exports = AmpersandModel.extend({
 
         this.on('change:value', function(model, value) {
             model.callbacks.forEach(function(callback) {
-                callback(value);
+                callback.cb(value);
             });
         });
     },

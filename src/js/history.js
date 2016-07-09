@@ -8,7 +8,7 @@ var merge = require('agency-pkg-utils/merge');
 
 //https://www.npmjs.com/package/history-events
 
-module.exports = new (AmpersandState.extend(dataTypeDefinition, {
+module.exports = new(AmpersandState.extend(dataTypeDefinition, {
     session: {
 
         registry: {
@@ -32,13 +32,15 @@ module.exports = new (AmpersandState.extend(dataTypeDefinition, {
         AmpersandState.prototype.initialize.apply(this, arguments);
 
         browserHistory.Adapter.bind(window, 'statechange', function() {
-            this.registry.add(browserHistory.getState().data, {merge: true});
+            this.registry.add(browserHistory.getState().data, {
+                merge: true
+            });
         }.bind(this), false);
 
         $(document).on('click', 'a[data-deep-name]', function(e) {
             e.preventDefault();
             var node = $(e.currentTarget);
-            if(!!node.attr('href').replace(/^#/, '')) {
+            if (!!node.attr('href').replace(/^#/, '')) {
                 this.update([{
                     name: node.data('deep-name'),
                     value: node.attr('href').replace(/^#/, '') || null
@@ -54,20 +56,31 @@ module.exports = new (AmpersandState.extend(dataTypeDefinition, {
 
     register: function(name, callback) {
         var entry = this.registry.get(name);
-        if(!entry){
-            entry = this.registry.add({name: name});
+        if (!entry) {
+            entry = this.registry.add({
+                name: name
+            });
         }
-        entry.callbacks.push(callback);
+        entry.callbacks.push({
+            name: name,
+            cb: callback
+        });
         callback(entry.value);
     },
 
-    unregister: function() {
-
+    unregister: function(name) {
+        var callbacks = this.registry.get(name).callbacks;
+        callbacks.splice(callbacks.findIndex(function(callback) {
+            if (callback.name === name) {
+                return true;
+            }
+        }), 1);
+        this.registry.get(name).callbacks = callbacks;
     },
 
     update: function(map, title) {
         var collection = updateSerializedCollection(this.registry.toJSON(), map);
-        if(title) {
+        if (title) {
             browserHistory.pushState(collection, title, toQueryString(collection));
         } else {
             browserHistory.replaceState(collection, browserHistory.getState().title, toQueryString(collection));
@@ -88,7 +101,7 @@ function getTitle(state) {
     var title = this.defaultTitle;
     state.forEach(function(item) {
         var node = $('[data-deep-name="' + item.name + '"][data-deep-value="' + item.value + '"][data-deep-title]');
-        if(node.length) {
+        if (node.length) {
             title = node.data('deep-title');
         }
     });
@@ -105,7 +118,7 @@ function toQueryString(collection) {
     }).map(function(item) {
         return item.name + '=' + item.value;
     });
-    if(result.length) {
+    if (result.length) {
         return '?' + result.join('&');
     } else {
         return location.pathname.split('/').slice(-1)[0] || 'index.html';
