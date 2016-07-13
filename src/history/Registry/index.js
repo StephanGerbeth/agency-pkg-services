@@ -2,7 +2,7 @@
 
 var AmpersandCollection = require('ampersand-collection');
 var url = require('url');
-var Entry = require('./Entry');
+var Entry = require('../Entry');
 
 module.exports = AmpersandCollection.extend({
     mainIndex: 'name',

@@ -2,7 +2,7 @@
 
 var browserHistory = require('exports?History!historyjs/scripts/bundled-uncompressed/html4+html5/native.history');
 var AmpersandState = require('ampersand-state');
-var Registry = require('./history/Registry');
+var Registry = require('./Registry');
 var dataTypeDefinition = require('agency-pkg-base/dataTypeDefinition');
 var merge = require('agency-pkg-utils/merge');
 

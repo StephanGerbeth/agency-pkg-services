@@ -27,12 +27,12 @@
     },
     "scripts": {
         "install": "node ./install.js",
-        "dev": "node node_modules/gulp/bin/gulp run --serverConfig=node_modules/agency-boilerplate/env/config/local.json --configTasks=node_modules/agency-boilerplate/env/config/tasks.json --env=package-development --server=agency-server",
-        "prod": "node node_modules/gulp/bin/gulp run --serverConfig=node_modules/agency-boilerplate/env/config/local.json --configTasks=node_modules/agency-boilerplate/env/config/tasks.json --env=production --server=agency-server"
+        "dev": "node node_modules/gulp/bin/gulp run --serverConfig=node_modules/agency-boilerplate/env/config/local.json --configTasks=env/config/tasks.json --env=package-development --server=agency-server",
+        "prod": "node node_modules/gulp/bin/gulp run --serverConfig=node_modules/agency-boilerplate/env/config/local.json --configTasks=env/config/tasks.json --env=production --server=agency-server"
     },
     "dependencies": {
         "historyjs": "^1.8.0-b2",
-        "agency-pkg-base": "git+https://git@github.com/StephanGerbeth/agency-pkg-base.git"
+        "agency-pkg-base": "git+https://git@github.com/StephanGerbeth/agency-pkg-base.git#feature/flat-files"
     },
     "devDependencies": {
         "agency-boilerplate": "git+https://git@github.com/StephanGerbeth/agency-boilerplate.git#feature/packages"
