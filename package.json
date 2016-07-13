@@ -35,6 +35,6 @@
         "agency-pkg-base": "git+https://git@github.com/StephanGerbeth/agency-pkg-base.git#feature/flat-files"
     },
     "devDependencies": {
-        "agency-boilerplate": "git+https://git@github.com/StephanGerbeth/agency-boilerplate.git#feature/packages"
+        "agency-boilerplate": "git+https://git@github.com/StephanGerbeth/agency-boilerplate.git#feature/flat-files"
     }
 }
