@@ -10,7 +10,6 @@ var merge = require('agency-pkg-utils/merge');
 
 module.exports = new(AmpersandState.extend(dataTypeDefinition, {
     session: {
-
         registry: {
             type: 'AmpersandCollection',
             required: true,
@@ -24,6 +23,13 @@ module.exports = new(AmpersandState.extend(dataTypeDefinition, {
             setOnce: true,
             default: function() {
                 return document.title;
+            }
+        },
+        defaultBaseFilename: {
+            type: 'string',
+            required: true,
+            default: function() {
+                return 'index.html';
             }
         }
     },
@@ -50,8 +56,15 @@ module.exports = new(AmpersandState.extend(dataTypeDefinition, {
             }
         }.bind(this));
 
+        /**
+         * Set [history-base-filename] attribute on HTML or BODY tag, for override default base filename.
+         */
+        if (document.querySelector('[data-history-base-filename]')) {
+            this.defaultBaseFilename = document.querySelector('[history-base-filename]').getAttribute('history-base-filename');
+        }
+
         var state = this.registry.toJSON();
-        browserHistory.replaceState(state, getTitle.bind(this)(state), toQueryString(state));
+        browserHistory.replaceState(state, getTitle.bind(this)(state), toQueryString(state, this.defaultBaseFilename));
     },
 
     register: function(name, callback) {
@@ -81,9 +94,9 @@ module.exports = new(AmpersandState.extend(dataTypeDefinition, {
     update: function(map, title) {
         var collection = updateSerializedCollection(this.registry.toJSON(), map);
         if (title) {
-            browserHistory.pushState(collection, title, toQueryString(collection));
+            browserHistory.pushState(collection, title, toQueryString(collection, this.defaultBaseFilename));
         } else {
-            browserHistory.replaceState(collection, browserHistory.getState().title, toQueryString(collection));
+            browserHistory.replaceState(collection, browserHistory.getState().title, toQueryString(collection, this.defaultBaseFilename));
         }
     },
 
@@ -112,7 +125,7 @@ function updateSerializedCollection(collection, map) {
     return merge.collections(collection, map, 'name');
 }
 
-function toQueryString(collection) {
+function toQueryString(collection, defaultBaseFilename) {
     var result = collection.filter(function(item) {
         return item.value !== null;
     }).map(function(item) {
@@ -121,6 +134,6 @@ function toQueryString(collection) {
     if (result.length) {
         return '?' + result.join('&');
     } else {
-        return location.pathname.split('/').slice(-1)[0] || 'index.html';
+        return location.pathname.split('/').slice(-1)[0] || defaultBaseFilename;
     }
 }
