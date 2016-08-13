@@ -60,7 +60,7 @@ module.exports = new(AmpersandState.extend(dataTypeDefinition, {
          * Set [history-base-filename] attribute on HTML or BODY tag, for override default base filename.
          */
         if (document.querySelector('[data-history-base-filename]')) {
-            this.defaultBaseFilename = document.querySelector('[history-base-filename]').getAttribute('history-base-filename');
+            this.defaultBaseFilename = document.querySelector('[data-history-base-filename]').getAttribute('data-history-base-filename');
         }
 
         var state = this.registry.toJSON();
