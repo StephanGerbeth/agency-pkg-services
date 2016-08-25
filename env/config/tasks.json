@@ -83,7 +83,7 @@
       }
     }, {
       "name": "docs",
-      "layout": "agency-pkg-layouts/default",
+      "layout": "agency-pkg-layouts/documentation",
       "renderingOnce": false,
       "files": {
         "src": ["./node_modules/agency-pkg-docs/docs-pkg/*.hbs"],
@@ -96,7 +96,7 @@
       }
     }, {
       "name": "partial-docs",
-      "layout": "agency-pkg-layouts/default",
+      "layout": "agency-pkg-layouts/documentation",
       "renderingOnce": false,
       "files": {
         "src": ["./test/tmpl/partials/**/*.hbs"],

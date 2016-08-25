@@ -1,0 +1,44 @@
+<section class="history-test" data-history-base-filename="index.html">
+
+  <h2>History Example</h2>
+
+  <fieldset>
+    <legend>Set Deep as replace or update</legend>
+    <p>
+      <input type="text" id="history-set-value" placeholder="Deep Value" />
+      <br />
+      <small><span style="font-style: italic;">Set "history-test" Deep</span></small>
+    </p>
+    <p>
+      <input type="text" id="history-set-title" placeholder="Page Title" />
+      <br />
+      <small><span style="font-style: italic;">Set the page title for history update.</span></small>
+    </p>
+    <p>
+      <input type="button" id="history-click-apply" value="Apply" />
+    </p>
+  </fieldset>
+
+  <p>
+
+    <input type="button" onclick="javascript: window.history.back();" value="History back" />
+    <input type="button" onclick="javascript: window.history.forward();" value="History forward" />
+
+  </p>
+
+  <fieldset>
+
+    <legend>Registry</legend>
+
+    <p>
+      history-test:
+      <span id="history-value"></span>
+    </p>
+
+    <p>
+      <small><span style="font-style: italic;">List of GET params.</span></small>
+    </p>
+    <ul id="history-debug-registry"></ul>
+  </fieldset>
+
+</section>
